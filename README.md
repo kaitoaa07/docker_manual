@@ -1,7 +1,7 @@
 # docker_manual
 
 dockerを導入して使用する手順を記します。
-今回は主にRaspberry pi 5を用いてdockerを使用する状況を想定します。\
+今回は主にRaspberry pi 5を用いてdockerを使用する状況を想定します。
 
 
 
@@ -21,8 +21,9 @@ sudo sh get-docker.sh
 ```
 docker --version
 ```
-例：Docker version 24.x.x と表示されれば成功です。\
-\
+例：Docker version 24.x.x と表示されれば成功です。
+
+
 
 ##  ユーザーを docker グループに追加
 
@@ -54,9 +55,10 @@ docker pullで公開されているimageをインストールできますが、d
 ```
 docker run -it --name <コンテナ名> ubuntu:22.04
 ```
-一般的に使用頻度が高く、公開されているimage名はdocker hubというサイトに掲載されています。\
-\
-\
+一般的に使用頻度が高く、公開されているimage名はdocker hubというサイトに掲載されています。
+
+
+
 
 上記のcodeを実行後は、Ubuntu22.04の環境が準備されたコンテナ内に入ります。\
 Raspberry piの環境と分断されるのですべてのコマンドをUbuntuで使用するものに変更する必要があります。\
