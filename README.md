@@ -1,8 +1,8 @@
 # docker_manual
 
-##
+dockerを導入して使用する手順を示します。
+今回はRaspberry pi 5で行う状況を想定します。
 
-# aa
 ## hostで
 ```
 sudo apt install x11-xserver-utils
