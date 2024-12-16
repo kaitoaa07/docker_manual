@@ -1,9 +1,9 @@
 # docker_manual
 
 dockerを導入して使用する手順を記します。
-今回は主にRaspberry pi 5を用いてdockerを使用する状況を想定します。
+今回は主にRaspberry pi 5を用いてdockerを使用する状況を想定します。\
 
-\
+
 
 
 ## dockerのインストールと初期設定
