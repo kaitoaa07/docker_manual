@@ -5,6 +5,7 @@ dockerを導入して使用する手順を記します。
 
 \
 \
+
 ## dockerのインストールと初期設定
 
 Raspberry Pi OSの準備
@@ -46,13 +47,21 @@ docker-compose --version
 ```
 
 ## Dockerコンテナの作成と実行
-dockerの基本的な実行方法としてdocker runを使用します。
+dockerの基本的な実行方法としてdocker runを使用します。\
 docker pullで公開されているimageをインストールできますが、docker runでコンテナの作成とimageのインストールを同時に行うことが出来るのでdocker runを使用することを推奨します。\
-使い方として、``docker run <コンテナ名> <image名>``という風に使用します。
-以下に
+使い方として、``docker run --name <自分でつけたいコンテナ名> <image名>``という風に使用します。
+以下にdockerを使用してUbuntu22.04を使用する方法を示します。
 ```
-docker run -d -p 80:80 --name my-nginx nginx
+docker run -it --name <コンテナ名> ubuntu:22.04
 ```
+一般的に使用頻度が高く、公開されているimage名はdocker hubというサイトに掲載されています。\
+\
+\
+
+上記のcodeを実行後は、Ubuntu22.04の環境が準備されたコンテナ内に入ります。\
+Raspberry piの環境と分断されるのですべてのコマンドをUbuntuで使用するものに変更する必要があります。\
+例えば、sudoコマンドは初期で導入されてないためaptコマンドでsudoをインストールする必要があります。
+
 
 ## hostで
 ```
