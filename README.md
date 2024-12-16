@@ -1,7 +1,58 @@
 # docker_manual
 
-dockerを導入して使用する手順を示します。
-今回はRaspberry pi 5で行う状況を想定します。
+dockerを導入して使用する手順を記します。
+今回は主にRaspberry pi 5を用いてdockerを使用する状況を想定します。
+
+\
+\
+## dockerのインストールと初期設定
+
+Raspberry Pi OSの準備
+```
+sudo apt update && sudo apt upgrade -y
+```
+dockerインストールコマンド
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+```
+インストールできたかの確認
+```
+docker --version
+```
+例：Docker version 24.x.x と表示されれば成功です。\
+\
+
+##  ユーザーを docker グループに追加
+
+sudo を毎回使わずに Docker を実行できるようにするには、現在のユーザーを docker グループに追加します。
+```
+sudo usermod -aG docker $USER
+```
+変更を反映するために再起動または以下のコマンドを実行します。
+```
+newgrp docker
+```
+
+## Docker Composeのインストール
+
+Docker Compose は複数のコンテナを管理する際に便利です。
+```
+sudo apt install -y docker-compose
+```
+インストールの確認
+```
+docker-compose --version
+```
+
+## Dockerコンテナの作成と実行
+dockerの基本的な実行方法としてdocker runを使用します。
+docker pullで公開されているimageをインストールできますが、docker runでコンテナの作成とimageのインストールを同時に行うことが出来るのでdocker runを使用することを推奨します。\
+使い方として、``docker run <コンテナ名> <image名>``という風に使用します。
+以下に
+```
+docker run -d -p 80:80 --name my-nginx nginx
+```
 
 ## hostで
 ```
