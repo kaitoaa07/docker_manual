@@ -123,9 +123,9 @@ docker コンテナの作成
 ```
 docker run -it --net=host --privileged --device=/dev/video0:/dev/vide0 --device=/dev/vchiq -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --name humble-picamera2 ros:humble
 ```
-\
-\
-\
+
+
+
 
 すべてのデバイスのアクセスを許可する場合--device=/dev/video0:/dev/vide0 --device=/dev/vchiqの部分を-dに変更する \
 ※危険
