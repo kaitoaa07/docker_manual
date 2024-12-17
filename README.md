@@ -60,7 +60,7 @@ docker-compose --version
 ## Dockerコンテナの作成と実行
 dockerの基本的な実行方法としてdocker runを使用します。\
 docker pullで公開されているimageをインストールできますが、docker runでコンテナの作成とimageのインストールを同時に行うことが出来るのでdocker runを使用することを推奨します。\
-使い方として、``docker run --name <自分でつけたいコンテナ名> <image名>``という風に使用します。
+使い方として、``docker run -it --name <自分でつけたいコンテナ名> <image名>``という風に使用します。
 以下にdockerを使用してUbuntu22.04を使用する方法を示します。
 ```
 docker run -it --name <コンテナ名> ubuntu:22.04
@@ -117,7 +117,7 @@ hostでdockerにdisplayの使用を許可する\
 xhost +local:docker
 ```
 Dockerでディスプレイ(X11と表記される)を使う場合、ホストシステムがコンテナに対してアクセスを許可していないことがあります。以上のコマンドでアクセス許可を与えます。\
-環境設定をしていない場合はディスプレイを使用したいたびに実行する必要がある
+環境設定をしていない場合はディスプレイを使用したいたびに実行する必要があります。
 
 docker コンテナの作成
 ```
