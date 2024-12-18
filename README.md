@@ -135,6 +135,11 @@ docker run -it --net=host --privileged -d -v /tmp/.X11-unix:/tmp/.X11-unix -e DI
 ※--rmをつけるとシェルを閉じるときにコンテナごと削除する
 
 ### docker imageの作成と使用
+imageを自作することもできます。\
+メリットとして、自作するとコンテナ作成時の環境を設定することができます。\
+例えば、Ubuntuの初期環境では入っていないライブラリを入れた状態でコンテナの作成などが可能です。\
+以下にros2のhumbleというディストリビューションが使用できる環境とその他の設定が行えるimage例を示します。
+
 ```
 nano Dockerfile
 ```
@@ -172,141 +177,17 @@ docker run -it <イメージ名>
 ```
 docker run -it --net=host --privileged -d --name <コンテナ名> <作成したイメージ名>
 ```
-
-
-### docker composeの作成と使用
-
-```
-mkdir my_project
-cd my_project
-```
-```
-mkdir app
-touch app/Dockerfile
-```
-```
-touch compose.yml
-```
-```
-nano compose.yml
-```
-```
-version: '3.9'  # Docker Composeのバージョン
-
-services:
-  robot-os:  # サービス名
-    image: ros:humble  # 使用するイメージ
-    container_name: robot-os-container  # 任意のコンテナ名
-    devices:
-      - "/dev:/dev"  # ホストのデバイスをコンテナにマウント（フルアクセス）
-    privileged: true  # コンテナを特権モードで実行
-    command: /bin/bash -c "apt-get update && apt-get install -y byobu && tail -f /dev/null"
-    tty: true  # インタラクティブなシェルを有効化
-```
-```
-version: '3.9'
-
-services:
-  robot-os:
-    image: ros:humble
-    container_name: robot-os-container
-    devices:
-      - "/dev:/dev"
-    privileged: true
-    environment:
-      - DISPLAY=${DISPLAY}
-      - DEBIAN_FRONTEND=noninteractive  # 非対話型環境で apt を実行
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-    entrypoint: /bin/bash -c "source /opt/ros/humble/setup.bash && tail -f /dev/null"
-    command: >
-      /bin/bash -c "apt update && apt install -y \
-        ros-${ROS_DISTRO}-v4l2-camera \
-        nano \
-        ros-humble-image-tools \
-        v4l-utils \
-        byobu && \
-        tail -f /dev/null"
-    tty: true
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-networks:
-  default:
-    driver: bridge
-
-```
-```
-version: '3.9'
-
-services:
-  robot-os:
-    image: ros:humble
-    container_name: <container_name>
-    devices:
-      - "/dev:/dev"
-    privileged: true
-    environment:
-      - DISPLAY=${DISPLAY}
-      - ROS_DISTRO=humble  # ROS_DISTRO を明示的に指定
-      - DEBIAN_FRONTEND=noninteractive
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-    entrypoint: /bin/bash -c "source /opt/ros/humble/setup.bash && apt update && apt install -y \
-      ros-humble-v4l2-camera \
-      nano \
-      ros-humble-image-tools \
-      v4l-utils \
-      byobu && tail -f /dev/null"
-    tty: true
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-networks:
-  default:
-    driver: bridge
-
-```
-```
-docker compose up -d
-```
-```
-docker exec -it robot-os-container /bin/bash
-```
-
-```
-docker-compose down --volumes --remove-orphans
-docker-compose up --build
-```
-
-
-```
-source /opt/ros/humble/setup.bash
-```
-```
-colcon build
-```
-
-sudo apt install byobu:ターミナル分割    \
-sudo apt install ros-humble-usb-cam:パブリッシャー    \
-sudo apt install ros-humble-rqt-image-view:サブスクライバー    
-```
-sudo apt install byobu\
-sudo apt install ros-humble-usb-cam\
-sudo apt install ros-humble-rqt-image-view
-```
-
 byobu　使い方    \
 shiht + F2 ターミナルを分割（横に）おすすめはこっち    \
 ctrl + F2  ターミナルを分割（縦に）    \
 shiht + F3 ターミナル移動（右または下に）    \
 shiht + F4 ターミナル移動（左または上に）
 
-```
-ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:="/dev/video8" -p pixel_format:="yuyv"
-```
-publisher
-```
-ros2 run rqt_image_view rqt_image_view
-```
-subscliber
+ros2を使用する人向けですが、byobuというライブラリの仕様を推奨します。\
+GUIが使用できる環境であればVScodeからdocker コンテナに接続できるものもあるのでそちらも便利です。\
+ros2ではnodeごとにターミナルを作成する必要があるためどちらかを使用する必要があります。
+
+### docker compose
+
+docker composeという複数のコンテナを一括で管理する方法もあります。
+使用しようとしましたが上手く使えなかったので記述を控えます。
