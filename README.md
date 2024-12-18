@@ -46,7 +46,7 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-## Docker Composeのインストール
+### Docker Composeのインストール
 
 Docker Compose は複数のコンテナを管理する際に便利です。
 ```
@@ -107,7 +107,7 @@ docker exec -it <コンテナ名> /bin/bash
 docker exec <コンテナ名またはID> <コマンド>
 ```
 
-## display(GUI)を使用したい場合
+### display(GUI)を使用したい場合
 ```
 sudo apt install x11-xserver-utils
 ```
@@ -134,7 +134,7 @@ docker run -it --net=host --privileged -d -v /tmp/.X11-unix:/tmp/.X11-unix -e DI
 ```
 ※--rmをつけるとシェルを閉じるときにコンテナごと削除する
 
-## docker imageの作成と使用
+### docker imageの作成と使用
 ```
 nano Dockerfile
 ```
@@ -174,7 +174,7 @@ docker run -it --net=host --privileged -d --name <コンテナ名> <作成した
 ```
 
 
-## docker composeの作成と使用
+### docker composeの作成と使用
 
 ```
 mkdir my_project
