@@ -119,19 +119,15 @@ xhost +local:docker
 Dockerでディスプレイ(X11と表記される)を使う場合、ホストシステムがコンテナに対してアクセスを許可していないことがあります。以上のコマンドでアクセス許可を与えます。\
 環境設定をしていない場合はディスプレイを使用したいたびに実行する必要があります。
 
-docker コンテナの作成
+### ハードウェアの接続をコンテナに許可したい場合
+
 ```
 docker run -it --net=host --privileged --device=/dev/video0:/dev/vide0 --device=/dev/vchiq -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --name humble-picamera2 ros:humble
 ```
-
-
-
-
+--privileged　<デバイス> でコンテナに対してハードウェアへの接続を許可することができる\
+上記のコードはカメラデバイス(0)とモニターへの接続を許可するもの。\
 すべてのデバイスのアクセスを許可する場合--device=/dev/video0:/dev/vide0 --device=/dev/vchiqの部分を-dに変更する \
-※危険
-```
-docker run -it --net=host --privileged -d -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --name humble-picamera2 ros:humble
-```
+↑※危険
 ※--rmをつけるとシェルを閉じるときにコンテナごと削除する
 
 ### docker imageの作成と使用
